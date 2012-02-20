@@ -5,7 +5,7 @@ module OmniAuth
   module Strategies
     class Twitter < OmniAuth::Strategies::OAuth
       option :name, 'twitter'
-      option :client_options, {:authorize_path => '/oauth/authenticate',
+      option :client_options, {:authorize_path => '/oauth/authorize',
                                :site => 'https://api.twitter.com'}
 
       uid { access_token.params[:user_id] }
@@ -36,7 +36,7 @@ module OmniAuth
 
       alias :old_request_phase :request_phase
 
-      def request_phase 
+      def request_phase
         screen_name = session['omniauth.params']['screen_name']
         if screen_name && !screen_name.empty?
           options[:authorize_params] ||= {}
